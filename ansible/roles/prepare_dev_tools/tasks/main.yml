@@ -5,6 +5,13 @@
   when: ansible_facts.os_family == 'RedHat'
   tags: system-packages
   block:
+    - name: Copy Centos Repos
+      copy:
+        src: centos.repo
+        dest: /etc/yum.repos.d/centos.repo
+      when: enable_centos_repos
+    # - name: Enable CentOS Repos
+    #  command: dnf config-manager --add-repo /etc/yum.repos.d/centos.repos
     - name: Install RPM packages
       package:
         name: "{{ (redhat_pkg_install | join(' ')).split() }}"

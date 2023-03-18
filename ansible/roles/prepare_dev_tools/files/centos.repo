@@ -1,0 +1,15 @@
+[centos-9-appstream-rpms]
+name = Centos 9 stream (RPMs) - AppStream
+baseurl = https://mirror.stream.centos.org/9-stream/AppStream/x86_64/os
+enabled = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+gpgcheck = 0
+priority=90 
+
+[centos-9-baseos-rpms]
+name = Centos 9 stream (RPMs) - BaseOS
+baseurl = https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/os
+enabled = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+gpgcheck = 0
+priority=90

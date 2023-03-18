@@ -13,6 +13,10 @@ platforms:
     override_command: false
     published_ports:
       - 0.0.0.0:55000:22/tcp
+    cgroups: no-conmon
+    volumes:
+     - /dev:/dev
+    tty: true
   - name: compute-1
     image: quay.io/smooney/podman-init:latest
     privileged: true
@@ -32,6 +36,6 @@ provisioner:
       compute-1:
         ansible_user: stack
   env:
-    ANSIBLE_ROLES_PATH: "${ANSIBLE_ROLES_PATH}:../../submodules/ansible-microshift-role:../../ansible/roles"
+    ANSIBLE_ROLES_PATH: "${ANSIBLE_ROLES_PATH}:../../submodule:../../ansible/roles"
 verifier:
   name: ansible

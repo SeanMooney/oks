@@ -4,3 +4,49 @@
   roles:
     - prepare_dev_tools
     - print_debug_ip
+
+
+- name: install microshift
+  hosts: controller
+  vars:
+    fqdn: controller
+    use_copr_microshift: false
+    openshift_pull_secret: "{{ lookup('file', pull_secret_path) }}"
+    disable_swap: false
+  tasks:
+    - name: Configure microshift
+      ansible.builtin.include_role:
+        name: ansible-microshift-role
+        tasks_from: '{{ taskname }}'
+      loop:
+        - 'repo.yaml'
+        - 'tools.yaml'
+        - 'crio.yaml'
+        - 'microshift.yaml'
+        - 'registry_login.yaml'
+        - 'olm.yaml'
+        - 'pv.yaml'
+        - 'openshift-storage.yaml'
+      loop_control:
+        loop_var: taskname
+      when: "{{ install_microshift | default('false') | bool }}"
+
+- name: install crc
+  hosts: controller
+  vars:
+  tasks:
+    - name: Install, configure, and start crc
+      block:
+        - name: workarounds
+          shell: |   
+            sudo systemctl unmask systemd-logind
+            sudo systemctl start systemd-logind
+            sudo loginctl enable-linger stack
+            sudo dnf install -y NetworkManager
+        - name: configure crc
+          ansible.builtin.include_role:
+            name: ensure_crc
+          vars:
+            crc_bundel_override: "-b https://storage.googleapis.com/crc-bundle-github-ci/4.12.5/crc_libvirt_4.12.5_amd64.crcbundle"
+      when: "not {{ install_microshift | default('false') | bool }}" 
+    
