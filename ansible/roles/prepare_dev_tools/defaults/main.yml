@@ -1,0 +1,16 @@
+---
+redhat_pkg_install:
+  - git
+  - sudo
+  - acl
+  - wget
+  - nano
+  - rsync
+  - pciutils
+  - openssh-clients
+redhat_pkg_remove:
+  - cloud-init
+  - python3-pyyaml
+  - python3-simplejson
+redhat_pkg_install_extra:
+redhat_pkg_remove_extra:

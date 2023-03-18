@@ -1,0 +1,6 @@
+---
+- name: prep hosts
+  hosts: all
+  roles:
+    - prepare_dev_tools
+    - print_debug_ip
