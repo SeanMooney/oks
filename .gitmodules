@@ -1,3 +1,0 @@
-[submodule "submodule/ansible-microshift-role"]
-	path = submodule/ansible-microshift-role
-	url = https://github.com/openstack-k8s-operators/ansible-microshift-role

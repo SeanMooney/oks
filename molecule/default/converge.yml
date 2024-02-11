@@ -1,5 +1,0 @@
----
-- name: "execute deploy oks"
-  import_playbook: ../../ansible/playbooks/deploy_oks.yaml
-  vars:
-    pull_secret_path: "../../../pull-secret"
